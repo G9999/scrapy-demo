@@ -16,8 +16,12 @@ class PhrasesSpider(scrapy.Spider):
     def start_requests(self):
         """Start the requests with the initial urls."""
 
+        # iterate over all the urls
         for page in range(1, 227):
             url = f'https://www.ofrases.com/tema/amor/{page}'
+            yield scrapy.Request(url=url, callback=self.parse)
+        for page in range(1, 407):
+            url = f'https://www.ofrases.com/tema/vida/{page}'
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):  # pylint: disable=no-self-use
